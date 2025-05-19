@@ -51,7 +51,7 @@ def create_tables_dataset(base_folder):
 
                         ddl = get_create_ddl(conn, table)
                         tables_entry = {
-                            "unique_id": "001",           
+                            "unique_id": "shipping_sentiment_entity_001",           
                             "db_id": db_folder,
                             "table_name": table,
                             "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       # <-- Aquí va el DDL
@@ -60,20 +60,30 @@ def create_tables_dataset(base_folder):
                             "udf_justification": "Two LLM UDFs are required. First, a sentiment analysis to detect negative feedback. Second, an entity or topic extraction UDF to verify if the negative comment relates to logistics (shipping problems, incorrect colors, custom instructions, suppliers, etc.). SQL cannot infer context or semantic intent within free text comments."
                         }
                         tables_dataset.append(tables_entry)
-                    """
-                    elif table == "orders":
+            elif sql_file.endswith(".sqlite") and sql_file == "movie_platform.sqlite":
+                sqlite_path = os.path.join(db_folder_path, sql_file)
+                print(f"Procesando: {sqlite_path}")
+
+                # Abrimos una conexión única para extraer DDL
+                conn = sqlite3.connect(sqlite_path)
+
+                for table in extract_tables_from_sqlite(sqlite_path):
+                    if table == "ratings":  
+                        #pd.set_option('display.max_colwidth', None)
+                        #df = pd.read_sql_query("SELECT rating_id, critic FROM ratings WHERE critic IS NOT NULL LIMIT 10", conn)
+                        #print(df) 
                         ddl = get_create_ddl(conn, table)
                         tables_entry = {
-                            "unique_id": "",           # Rellenar luego
+                            "unique_id": "negative_sarcasm_002",           # Rellenar luego
                             "db_id": db_folder,
                             "table_name": table,
                             "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       # <-- Aquí va el DDL
-                            "question": "",
-                            "expected_result": "",
-                            "udf_justification": ""
+                            "question": "Which reviews express negative opinions using a sarcastic or ironic tone?",
+                            "expected_result": [9274840],
+                            "udf_justification": "Two LLM-based UDFs are required. The first identifies whether the content of the 'critic' field reflects a negative sentiment. The second detects whether the writing style is sarcastic or ironic, which requires pragmatically interpreting the tone of the text. SQL cannot detect sarcasm or judge communicative style. Only a linguistic model with contextual understanding can handle this task."
                         }
                         tables_dataset.append(tables_entry)
-                    """
+                    
                     """
                     elif table == "orders":
                         ddl = get_create_ddl(conn, table)
