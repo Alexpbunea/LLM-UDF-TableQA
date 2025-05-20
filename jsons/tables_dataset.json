@@ -1,0 +1,309 @@
+[
+  {
+    "unique_id": "shipping_sentiment_entity_001",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders contain negative comments specifically about problems related to shipping or logistics?",
+    "expected_result": [
+      10415,
+      10417
+    ],
+    "udf_justification": "Two LLM UDFs are required. First, a sentiment analysis to detect negative feedback. Second, an entity or topic extraction UDF to verify if the negative comment relates to logistics (shipping problems, incorrect colors, custom instructions, suppliers, etc.). SQL cannot infer context or semantic intent within free text comments."
+  },
+  {
+    "unique_id": "sentiment_001",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders include comments that express a negative sentiment or dissatisfaction from the customer?",
+    "expected_result": [
+      10124,
+      10164,
+      10179
+    ],
+    "udf_justification": "SQL cannot interpret emotional tone or negative intent within unstructured text. A UDF based on LLM is required to classify the sentiment of customer comments, identifying dissatisfaction or concern."
+  },
+  {
+    "unique_id": "topic_extraction_001",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders mention specific shipping methods such as FedEx or custom delivery instructions?",
+    "expected_result": [
+      10109,
+      10127,
+      10178,
+      10215
+    ],
+    "udf_justification": "The SQL engine cannot extract named shipping methods or understand delivery context from free-text comments. A UDF with named entity recognition is needed to identify and classify references to specific shipping options."
+  },
+  {
+    "unique_id": "topic_extraction_002",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders include comments related to finance, agreements, or contract renegotiation?",
+    "expected_result": [
+      10148,
+      10150,
+      10186,
+      10189,
+      10206
+    ],
+    "udf_justification": "Topic classification is required to detect financial negotiation or contractual discussions within free-text comments. SQL lacks the semantic understanding to perform such classification; an LLM-based UDF is necessary."
+  },
+  {
+    "unique_id": "sentiment_002",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders include comments that indicate customer dissatisfaction or risk of conflict?",
+    "expected_result": [
+      10253,
+      10327,
+      10328
+    ],
+    "udf_justification": "The comments reflect potential issues with the customer (e.g., disputes, dissatisfaction, color mismatches). SQL cannot interpret tone or risk from text. A sentiment and risk evaluation UDF using LLM is required to identify these cases."
+  },
+  {
+    "unique_id": "topic_extraction_003",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders involve credit limit issues or payment conditions mentioned by the customer?",
+    "expected_result": [
+      10334,
+      10212
+    ],
+    "udf_justification": "This task requires detecting the topic 'credit/payment' within the unstructured comments field. SQL cannot classify the thematic focus of textual content. An LLM-based topic classification UDF is needed."
+  },
+  {
+    "unique_id": "topic_extraction_004",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Which orders include comments that are about vehicle brands or specific car models?",
+    "expected_result": [
+      10242,
+      10248,
+      10279,
+      10340
+    ],
+    "udf_justification": "This task requires identifying whether the topic of the comment involves vehicle brands or specific car models (e.g., Ferrari, Mustang). SQL cannot detect abstract or thematic intent in text. A topic classification UDF using an LLM is necessary to capture this concept from unstructured comments."
+  },
+  {
+    "unique_id": "summarization_001",
+    "db_id": "car_retails",
+    "table_name": "orders",
+    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
+    "question": "Summarize each order where the customer tried to renegotiate or cancel due to external offers or pricing concerns.",
+    "expected_result": [
+      {
+        "orderNumber": 10262,
+        "summary": "Customer found a better offer and wants to renegotiate the order."
+      },
+      {
+        "orderNumber": 10239,
+        "summary": "Customer wants to renegotiate the agreement."
+      }
+    ],
+    "udf_justification": "Summarization UDF is needed to condense negotiation-related comments into short, meaningful descriptions. SQL cannot generate summaries from multi-clause, unstructured comments."
+  },
+  {
+    "unique_id": "topic_extraction_005",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which violations are related to inadequate handwashing or sanitation facilities?",
+    "expected_result": [
+      10,
+      24,
+      31,
+      45
+    ],
+    "udf_justification": "The descriptions must be classified by topic (e.g., hygiene infrastructure). SQL cannot semantically detect that 'inadequate and inaccessible handwashing facilities' refers to hygiene. A topic classification UDF using an LLM is required."
+  },
+  {
+    "unique_id": "risk_level_extraction_001",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which violations represent a high risk to public health?",
+    "expected_result": [
+      10
+    ],
+    "udf_justification": "Although some descriptions include the word 'high risk', others may imply it without explicitly saying it. SQL cannot infer risk level from context. A UDF is needed to classify text based on health risk severity."
+  },
+  {
+    "unique_id": "entity_extraction_001",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which violations mention chemicals or toxic substances being improperly used or stored?",
+    "expected_result": [
+      31,
+      48
+    ],
+    "udf_justification": "This task requires identifying references to chemical risks within the violation descriptions. SQL cannot extract such entities or infer meaning from compound phrases. An LLM-based UDF with entity detection capabilities is needed."
+  },
+  {
+    "unique_id": "entity_extraction_002",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which businesses have violations that mention the presence of vermin or pests?",
+    "expected_result": [
+      58,
+      73
+    ],
+    "udf_justification": "This requires identifying biological threats such as 'vermin' in the violation descriptions. SQL cannot detect such entities unless exact keywords match. An LLM-based UDF with entity extraction capabilities is necessary."
+  },
+  {
+    "unique_id": "summarization_004",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Summarize the main hygiene problems cited in inspections for each business with multiple violations.",
+    "expected_result": [
+      {
+        "business_id": 56,
+        "summary": "This business has numerous violations including poor handwashing access, food contamination, and unclean equipment."
+      },
+      {
+        "business_id": 73,
+        "summary": "This business was cited for pest issues, improper storage, and unsafe food handling conditions."
+      }
+    ],
+    "udf_justification": "Condensing multiple violations into a coherent summary requires synthesis beyond SQL capabilities. A summarization UDF using an LLM is needed to generate informative descriptions of key hygiene concerns."
+  },
+  {
+    "unique_id": "topic_extraction_006",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which businesses have violations indicating unapproved or unmaintained equipment or utensils?",
+    "expected_result": [
+      76,
+      77,
+      95
+    ],
+    "udf_justification": "Identifying repeated mentions of equipment maintenance issues across multiple descriptions requires semantic topic classification. SQL cannot group variants of this theme; an LLM-based UDF is necessary."
+  },
+  {
+    "unique_id": "staff_behaviour_001",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which businesses were cited for violations related to employee behavior or actions that compromise food safety?",
+    "expected_result": [
+      116
+    ],
+    "udf_justification": "This task requires identifying violations where staff behavior—such as eating, smoking, or lack of certification—directly impacts food safety. SQL cannot infer behavioral categories from text. An LLM-based topic classification UDF is required."
+  },
+  {
+    "unique_id": "topic_extraction_007",
+    "db_id": "food_inspection",
+    "table_name": "violations",
+    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
+    "question": "Which businesses have violations related to garbage service, refuse containers, or waste area sanitation?",
+    "expected_result": [
+      126
+    ],
+    "udf_justification": "Detecting violations about unsanitary or missing refuse handling requires understanding the meaning of phrases like 'unsanitary refuse containers'. SQL cannot perform conceptual matching at this level. An LLM-based UDF is required to identify sanitation-related violations regarding waste."
+  },
+  {
+    "unique_id": "sentiment_sarcasm_001",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Which reviews express negative opinions using a sarcastic or ironic tone?",
+    "expected_result": [
+      9274840
+    ],
+    "udf_justification": "Two LLM-based UDFs are required. The first identifies whether the content of the 'critic' field reflects a negative sentiment. The second detects whether the writing style is sarcastic or ironic, which requires pragmatically interpreting the tone of the text. SQL cannot detect sarcasm or judge communicative style. Only a linguistic model with contextual understanding can handle this task."
+  },
+  {
+    "unique_id": "sentiment_003",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Which reviews clearly express a negative opinion about the film?",
+    "expected_result": [
+      10312442
+    ],
+    "udf_justification": "SQL cannot interpret the emotional tone of text. An LLM-based UDF is required to classify the content of the 'critic' field as negative, since expressions like 'Don't waste your time on this' reflect strong dissatisfaction."
+  },
+  {
+    "unique_id": "writing_style_sarcasm_001",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Which reviews are written in a sarcastic or ironic tone?",
+    "expected_result": [
+      14292624
+    ],
+    "udf_justification": "Phrases like 'Can we all just agree to pretend that this flick didn't happen?' clearly reflect sarcasm. SQL cannot infer communicative style. An LLM-based UDF capable of pragmatic and semantic interpretation is required to detect ironic writing."
+  },
+  {
+    "unique_id": "summarization_002",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Summarize the content of the review in a single clear sentence.",
+    "expected_result": [
+      {
+        "rating_id": 14558450,
+        "summary": "A review that considers the documentary oversimplified and unfocused."
+      }
+    ],
+    "udf_justification": "This task requires summarizing the 'critic' text into a semantically representative sentence. SQL cannot perform abstract text synthesis, so a summarization-capable LLM UDF is needed."
+  },
+  {
+    "unique_id": "sentiment_004",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Which reviews express a highly positive opinion and mention personal emotional impact?",
+    "expected_result": [
+      6393245
+    ],
+    "udf_justification": "The review states that the movie 'left a mark on me', indicating a strong emotional reaction. SQL cannot detect sentiment intensity or personal impact from unstructured text. A UDF LLM is required to analyze emotional tone and subjective experience."
+  },
+  {
+    "unique_id": "sentiment_005",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Which reviews express a clearly negative opinion about the film?",
+    "expected_result": [
+      804201
+    ],
+    "udf_justification": "The reviewer states they lost empathy and compares the experience to watching 'some sort of Amelie', indicating disillusionment. SQL cannot interpret nuanced emotional expressions. A UDF based on LLM is required to detect negative sentiment in context."
+  },
+  {
+    "unique_id": "summarization_003",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Summarize the content of the review in a single clear sentence.",
+    "expected_result": [
+      {
+        "rating_id": 10308984,
+        "summary": "A heartfelt and artistic documentary that highlights Patti Smith's reflections on death."
+      }
+    ],
+    "udf_justification": "Summarizing free-text reviews into concise, meaningful sentences requires semantic understanding, which SQL cannot provide. A UDF powered by an LLM is necessary to generate accurate abstractive summaries from open-ended text."
+  },
+  {
+    "unique_id": "writing_style_poetic_001",
+    "db_id": "movie_platform",
+    "table_name": "ratings",
+    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
+    "question": "Which reviews are written in a poetic or abstract style?",
+    "expected_result": [
+      10803157
+    ],
+    "udf_justification": "The review uses metaphoric and abstract expressions like 'she extends her hand to the ghosts that walk the streets'. SQL cannot detect poetic language or abstract conceptual framing. A UDF based on LLM is needed to classify the writing style as poetic or literary."
+  }
+]

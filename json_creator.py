@@ -57,16 +57,16 @@ def create_tables_dataset(base_folder):
             """
             if sql_file.endswith(".sqlite") and sql_file == "car_retails.sqlite":
                 sqlite_path = os.path.join(db_folder_path, sql_file)
-                print(f"Procesando: {sqlite_path}")
+                print(f"Processing: {sqlite_path}")
 
                 # Abrimos una conexión única para extraer DDL
                 conn = sqlite3.connect(sqlite_path)
 
                 for table in extract_tables_from_sqlite(sqlite_path):
                     if table == "orders":
-                        pd.set_option('display.max_colwidth', None)
-                        df = pd.read_sql_query("SELECT orderNumber, comments FROM orders WHERE comments IS NOT NULL LIMIT 60", conn)
-                        print(df)
+                        #pd.set_option('display.max_colwidth', None)
+                        #df = pd.read_sql_query("SELECT orderNumber, comments FROM orders WHERE comments IS NOT NULL LIMIT 60", conn)
+                        #print(df)
 
                         ddl = get_create_ddl(conn, table)
                         tables_entry = {
@@ -173,7 +173,7 @@ def create_tables_dataset(base_folder):
                 """
             elif sql_file.endswith(".sqlite") and sql_file == "movie_platform.sqlite":
                 sqlite_path = os.path.join(db_folder_path, sql_file)
-                print(f"Procesando: {sqlite_path}")
+                print(f"Processing: {sqlite_path}")
                 
                 
                 conn = sqlite3.connect(sqlite_path)
@@ -277,11 +277,127 @@ def create_tables_dataset(base_folder):
                         tables_dataset.append(tables_entry7)
                         tables_dataset.append(tables_entry8)
                     
+            elif sql_file.endswith(".sqlite") and sql_file == "food_inspection.sqlite":
+                sqlite_path = os.path.join(db_folder_path, sql_file)
+                print(f"Processing: {sqlite_path}")
+                
+                
+                conn = sqlite3.connect(sqlite_path)
+                
+                for table in extract_tables_from_sqlite(sqlite_path):
+                    if table == "violations":  
+                        #pd.set_option('display.max_colwidth', None)
+                        #df = pd.read_sql_query("SELECT business_id, description FROM violations WHERE description IS NOT NULL", conn)
+                        #print(df[100:150])
+                        #print(df[150:200]) 
+                        
+                        ddl = get_create_ddl(conn, table)
+                        tables_entry = {
+                            "unique_id": "topic_extraction_005",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which violations are related to inadequate handwashing or sanitation facilities?",
+                            "expected_result": [10, 24, 31, 45],
+                            "udf_justification": "The descriptions must be classified by topic (e.g., hygiene infrastructure). SQL cannot semantically detect that 'inadequate and inaccessible handwashing facilities' refers to hygiene. A topic classification UDF using an LLM is required."
+                        }
+
+                        tables_entry2 = {
+                            "unique_id": "risk_level_extraction_001",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which violations represent a high risk to public health?",
+                            "expected_result": [10],
+                            "udf_justification": "Although some descriptions include the word 'high risk', others may imply it without explicitly saying it. SQL cannot infer risk level from context. A UDF is needed to classify text based on health risk severity."
+                        }
+
+                        tables_entry3 = {
+                            "unique_id": "entity_extraction_001",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which violations mention chemicals or toxic substances being improperly used or stored?",
+                            "expected_result": [31, 48],
+                            "udf_justification": "This task requires identifying references to chemical risks within the violation descriptions. SQL cannot extract such entities or infer meaning from compound phrases. An LLM-based UDF with entity detection capabilities is needed."
+                        }
+
+                        tables_entry4 = {
+                            "unique_id": "entity_extraction_002",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which businesses have violations that mention the presence of vermin or pests?",
+                            "expected_result": [58, 73],
+                            "udf_justification": "This requires identifying biological threats such as 'vermin' in the violation descriptions. SQL cannot detect such entities unless exact keywords match. An LLM-based UDF with entity extraction capabilities is necessary."
+                        }
+                        
+                        tables_entry5 = {
+                            "unique_id": "summarization_004",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Summarize the main hygiene problems cited in inspections for each business with multiple violations.",
+                            "expected_result": [
+                                {
+                                "business_id": 56,
+                                "summary": "This business has numerous violations including poor handwashing access, food contamination, and unclean equipment."
+                                },
+                                {
+                                "business_id": 73,
+                                "summary": "This business was cited for pest issues, improper storage, and unsafe food handling conditions."
+                                }
+                            ],
+                            "udf_justification": "Condensing multiple violations into a coherent summary requires synthesis beyond SQL capabilities. A summarization UDF using an LLM is needed to generate informative descriptions of key hygiene concerns."
+                        }
+
+                        tables_entry6 = {
+                            "unique_id": "topic_extraction_006",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which businesses have violations indicating unapproved or unmaintained equipment or utensils?",
+                            "expected_result": [76, 77, 95],
+                            "udf_justification": "Identifying repeated mentions of equipment maintenance issues across multiple descriptions requires semantic topic classification. SQL cannot group variants of this theme; an LLM-based UDF is necessary."
+                        }
+                        
+                        tables_entry7 = {
+                            "unique_id": "staff_behaviour_001",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which businesses were cited for violations related to employee behavior or actions that compromise food safety?",
+                            "expected_result": [116],
+                            "udf_justification": "This task requires identifying violations where staff behavior—such as eating, smoking, or lack of certification—directly impacts food safety. SQL cannot infer behavioral categories from text. An LLM-based topic classification UDF is required."
+                        }
+
+                        tables_entry8 = {
+                            "unique_id": "topic_extraction_007",           
+                            "db_id": db_folder,
+                            "table_name": table,
+                            "table_schema": ddl.replace("\n", " ").replace("  ", " ").strip(),       
+                            "question": "Which businesses have violations related to garbage service, refuse containers, or waste area sanitation?",
+                            "expected_result": [126],
+                            "udf_justification": "Detecting violations about unsanitary or missing refuse handling requires understanding the meaning of phrases like 'unsanitary refuse containers'. SQL cannot perform conceptual matching at this level. An LLM-based UDF is required to identify sanitation-related violations regarding waste."
+                        }
+
+                        tables_dataset.append(tables_entry)
+                        tables_dataset.append(tables_entry2)
+                        tables_dataset.append(tables_entry3)
+                        tables_dataset.append(tables_entry4)
+                        tables_dataset.append(tables_entry5)
+                        tables_dataset.append(tables_entry6)
+                        tables_dataset.append(tables_entry7)
+                        tables_dataset.append(tables_entry8)
+
                 conn.close()
 
     return tables_dataset
 
 if __name__ == "__main__":
     path = r"C:\Users\Mydevice\Downloads\train\train\train_databases\train_databases"
+    output_path = "./jsons/tables_dataset.json"
     dataset = create_tables_dataset(path)
-   # print(json.dumps(dataset, indent=2, ensure_ascii=False))
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(dataset, f, indent=2, ensure_ascii=False)
+    #print(json.dumps(dataset, indent=2, ensure_ascii=False))
