@@ -25,7 +25,7 @@ After reading those CSVs, stores the information in the following format:
     "table_schema": "...",
     "question": "...",
     "expected_result": [
-        ...
+        "..."
     ],
     "udf_justification": "..."
   }
