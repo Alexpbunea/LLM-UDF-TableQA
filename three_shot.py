@@ -118,7 +118,7 @@ for unique_id, item_data in prompts_and_expected.items():
 
     print(f"Sending prompt for unique_id: {unique_id}...")
     try:
-        client = genai.Client(api_key="AIzaSyBd3CbjFZ5UuyPYZPSw_sZa_ooWg2SACr4")
+        client = genai.Client(api_key="PUT_YOUR_API_KEY_HERE")
         response = client.models.generate_content(
             model="gemini-2.5-flash-preview-04-17", contents=prompt_to_send
         )
