@@ -101,28 +101,6 @@
     "udf_justification": "This task requires identifying whether the topic of the comment involves vehicle brands or specific car models (e.g., Ferrari, Mustang). SQL cannot detect abstract or thematic intent in text. A topic classification UDF using an LLM is necessary to capture this concept from unstructured comments."
   },
   {
-    "unique_id": "summarization_001",
-    "db_id": "car_retails",
-    "table_name": "orders",
-    "table_schema": "CREATE TABLE orders (   orderNumber  INTEGER   not null     primary key,   orderDate   DATE    not null,   requiredDate  DATE    not null,   shippedDate  DATE,   status     TEXT not null,   comments    TEXT,   customerNumber INTEGER   not null,   foreign key (customerNumber) references customers(customerNumber) )",
-    "question": "Summarize each order where the customer tried to renegotiate or cancel due to external offers or pricing concerns.",
-    "expected_result": [
-      {
-        "orderID": 10167,
-        "summary": "Customer called to cancel. The warehouse was notified in time and the order didn't ship. They have a new VP of Sales and are shifting their sales model."
-      },
-      {
-        "orderNumber": 10262,
-        "summary": "Customer found a better offer and wants to renegotiate the order."
-      },
-      {
-        "orderNumber": 10239,
-        "summary": "Customer wants to renegotiate the agreement."
-      }
-    ],
-    "udf_justification": "Summarization UDF is needed to condense negotiation-related comments into short, meaningful descriptions. SQL cannot generate summaries from multi-clause, unstructured comments."
-  },
-  {
     "unique_id": "topic_extraction_005",
     "db_id": "food_inspection",
     "table_name": "violations",
@@ -250,23 +228,6 @@
     "udf_justification": "Condensing multiple violations into a coherent summary requires synthesis beyond SQL capabilities. A summarization UDF using an LLM is needed to generate informative descriptions of key hygiene concerns."
   },
   {
-    "unique_id": "topic_extraction_006",
-    "db_id": "food_inspection",
-    "table_name": "violations",
-    "table_schema": "CREATE TABLE `violations` (  `business_id` INTEGER NOT NULL,  `date` DATE NOT NULL,  `violation_type_id` TEXT NOT NULL,  `risk_category` TEXT NOT NULL,  `description` TEXT NOT NULL,  FOREIGN KEY (`business_id`) REFERENCES `businesses` (`business_id`) )",
-    "question": "Which businesses have violations indicating unapproved or unmaintained equipment or utensils?",
-    "expected_result": [
-      10,
-      45,
-      56,
-      61,
-      77,
-      95,
-      108
-    ],
-    "udf_justification": "Identifying repeated mentions of equipment maintenance issues across multiple descriptions requires semantic topic classification. SQL cannot group variants of this theme; an LLM-based UDF is necessary."
-  },
-  {
     "unique_id": "staff_behaviour_001",
     "db_id": "food_inspection",
     "table_name": "violations",
@@ -382,21 +343,6 @@
       }
     ],
     "udf_justification": "This task requires summarizing the 'critic' text into a semantically representative sentence. SQL cannot perform abstract text synthesis, so a summarization-capable LLM UDF is needed."
-  },
-  {
-    "unique_id": "sentiment_004",
-    "db_id": "movie_platform",
-    "table_name": "ratings",
-    "table_schema": "CREATE TABLE ratings (   movie_id        INTEGER,   rating_id        INTEGER,   rating_url       TEXT,   rating_score      INTEGER,   rating_timestamp_utc  TEXT,   critic         TEXT,   critic_likes      INTEGER,   critic_comments     INTEGER,   user_id         INTEGER,   user_trialist      INTEGER,   user_subscriber     INTEGER,   user_eligible_for_trial INTEGER,   user_has_payment_method INTEGER,   foreign key (movie_id) references movies(movie_id),   foreign key (user_id) references lists_users(user_id),   foreign key (rating_id) references ratings(rating_id),   foreign key (user_id) references ratings_users(user_id) )",
-    "question": "Which reviews express a highly positive opinion and mention personal emotional impact?",
-    "expected_result": [
-      8761221,
-      14589535,
-      14247813,
-      14529999,
-      6393245
-    ],
-    "udf_justification": "The review states that the movie 'left a mark on me', indicating a strong emotional reaction. SQL cannot detect sentiment intensity or personal impact from unstructured text. A UDF LLM is required to analyze emotional tone and subjective experience."
   },
   {
     "unique_id": "writing_style_poetic_001",

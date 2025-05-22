@@ -1,0 +1,201 @@
+business_id,description
+10,Insufficient hot water or running water
+10,Unapproved or unmaintained equipment or utensils
+10,Inadequate and inaccessible handwashing facilities
+10,Improper storage of equipment utensils or linens
+10,Unclean or degraded floors walls or ceilings
+10,High risk vermin infestation
+10,High risk food holding temperature
+10,Unapproved or unmaintained equipment or utensils
+10,High risk food holding temperature
+10,No thermometers or uncalibrated thermometers
+24,Improper storage of equipment utensils or linens
+24,Permit license or inspection report not posted
+24,Inadequate and inaccessible handwashing facilities
+24,Unclean or degraded floors walls or ceilings
+24,Unclean or degraded floors walls or ceilings
+31,Improper storage of equipment utensils or linens
+31,Permit license or inspection report not posted
+31,Improper food storage
+31,Improper storage use or identification of toxic substances
+31,Inadequate and inaccessible handwashing facilities
+31,Inadequate food safety knowledge or lack of certified food safety manager
+31,Food safety certificate or food handler card not available
+45,Improper storage of equipment utensils or linens
+45,Wiping cloths not clean or properly stored or inadequate sanitizer
+45,Unclean or degraded floors walls or ceilings
+45,Unclean or degraded floors walls or ceilings
+45,Unapproved or unmaintained equipment or utensils
+45,Unclean nonfood contact surfaces
+45,Inadequately cleaned or sanitized food contact surfaces
+45,Inadequate and inaccessible handwashing facilities
+45,Employee eating or smoking
+45,Inadequate food safety knowledge or lack of certified food safety manager
+45,Food safety certificate or food handler card not available
+45,Moderate risk food holding temperature
+45,Unapproved or unmaintained equipment or utensils
+45,Foods not protected from contamination
+45,Unclean or degraded floors walls or ceilings
+45,Moderate risk vermin infestation
+45,Inadequate food safety knowledge or lack of certified food safety manager
+48,Wiping cloths not clean or properly stored or inadequate sanitizer
+48,Improper storage use or identification of toxic substances
+48,Inadequate food safety knowledge or lack of certified food safety manager
+48,Unclean nonfood contact surfaces
+48,Unclean nonfood contact surfaces
+48,Foods not protected from contamination
+48,Low risk vermin infestation
+54,Moderate risk food holding temperature
+54,Inadequate sewage or wastewater disposal
+54,Moderate risk food holding temperature
+56,Unclean or degraded floors walls or ceilings
+56,Inadequate and inaccessible handwashing facilities
+56,Unapproved or unmaintained equipment or utensils
+56,Wiping cloths not clean or properly stored or inadequate sanitizer
+56,Permit license or inspection report not posted
+56,Foods not protected from contamination
+56,Inadequately cleaned or sanitized food contact surfaces
+56,Moderate risk food holding temperature
+56,Unapproved or unmaintained equipment or utensils
+56,Improper storage of equipment utensils or linens
+56,Unclean or degraded floors walls or ceilings
+58,Unclean or unsanitary food contact surfaces
+58,High risk vermin infestation
+58,Inadequate and inaccessible handwashing facilities
+58,Moderate risk food holding temperature
+58,No thermometers or uncalibrated thermometers
+58,Inadequate ventilation or lighting
+58,Unclean or unsanitary food contact surfaces
+58,Improper cooling methods
+58,High risk food holding temperature
+58,Low risk vermin infestation
+61,Unclean nonfood contact surfaces
+61,Foods not protected from contamination
+61,Wiping cloths not clean or properly stored or inadequate sanitizer
+61,Foods not protected from contamination
+61,Moderate risk food holding temperature
+61,Unclean nonfood contact surfaces
+61,Unapproved or unmaintained equipment or utensils
+61,Wiping cloths not clean or properly stored or inadequate sanitizer
+61,Unclean nonfood contact surfaces
+61,Improper food storage
+61,Improper or defective plumbing
+66,Inadequate warewashing facilities or equipment
+66,Wiping cloths not clean or properly stored or inadequate sanitizer
+66,Wiping cloths not clean or properly stored or inadequate sanitizer
+66,No hot water or running water
+66,No plan review or Building Permit
+73,Unclean or degraded floors walls or ceilings
+73,Wiping cloths not clean or properly stored or inadequate sanitizer
+73,Moderate risk vermin infestation
+73,Improper storage use or identification of toxic substances
+73,High risk food holding temperature
+73,Improper storage of equipment utensils or linens
+73,Low risk vermin infestation
+73,Improper food storage
+73,Inadequately cleaned or sanitized food contact surfaces
+73,Improper storage of equipment utensils or linens
+73,Improper or defective plumbing
+73,Foods not protected from contamination
+73,Unclean nonfood contact surfaces
+73,Improper food storage
+76,Improper storage of equipment utensils or linens
+76,Permit license or inspection report not posted
+76,Improper storage of equipment utensils or linens
+77,Permit license or inspection report not posted
+77,Moderate risk food holding temperature
+77,Wiping cloths not clean or properly stored or inadequate sanitizer
+77,Unapproved or unmaintained equipment or utensils
+77,Unapproved or unmaintained equipment or utensils
+77,High risk food holding temperature
+80,Improper food storage
+80,High risk food holding temperature
+80,Other high risk violation
+88,Contaminated or adulterated food
+88,High risk food holding temperature
+88,Moderate risk vermin infestation
+88,Inadequate food safety knowledge or lack of certified food safety manager
+88,Unclean or degraded floors walls or ceilings
+88,Wiping cloths not clean or properly stored or inadequate sanitizer
+88,Unclean or degraded floors walls or ceilings
+88,Permit license or inspection report not posted
+88,High risk food holding temperature
+88,Inadequate food safety knowledge or lack of certified food safety manager
+88,Unclean nonfood contact surfaces
+88,Contaminated or adulterated food
+88,High risk food holding temperature
+88,Unclean or degraded floors walls or ceilings
+88,Improper cooling methods
+88,Unclean or unsanitary food contact surfaces
+95,Inadequately cleaned or sanitized food contact surfaces
+95,Moderate risk vermin infestation
+95,Unclean nonfood contact surfaces
+95,Unapproved or unmaintained equipment or utensils
+95,Unclean or degraded floors walls or ceilings
+95,Food safety certificate or food handler card not available
+95,Unclean or degraded floors walls or ceilings
+95,Unclean nonfood contact surfaces
+95,Improper food storage
+95,High risk vermin infestation
+95,Inadequately cleaned or sanitized food contact surfaces
+95,Moderate risk vermin infestation
+95,Unclean nonfood contact surfaces
+95,Unclean or degraded floors walls or ceilings
+95,Inadequate food safety knowledge or lack of certified food safety manager
+95,Unapproved or unmaintained equipment or utensils
+95,Permit license or inspection report not posted
+95,Insufficient hot water or running water
+95,Unclean nonfood contact surfaces
+98,Unclean or degraded floors walls or ceilings
+98,Moderate risk vermin infestation
+98,Inadequate food safety knowledge or lack of certified food safety manager
+98,Inadequate and inaccessible handwashing facilities
+99,Wiping cloths not clean or properly stored or inadequate sanitizer
+99,Inadequate ventilation or lighting
+99,Improper storage of equipment utensils or linens
+99,Improper food storage
+99,Foods not protected from contamination
+99,Inadequately cleaned or sanitized food contact surfaces
+99,Moderate risk vermin infestation
+99,Improper thawing methods
+101,Inadequate food safety knowledge or lack of certified food safety manager
+101,Unclean or degraded floors walls or ceilings
+102,Unclean or unsanitary food contact surfaces
+102,Inadequate ventilation or lighting
+108,Unapproved or unmaintained equipment or utensils
+108,Foods not protected from contamination
+108,Inadequate and inaccessible handwashing facilities
+108,Permit license or inspection report not posted
+108,Unapproved  living quarters in food facility
+108,Wiping cloths not clean or properly stored or inadequate sanitizer
+108,Inadequate ventilation or lighting
+108,Moderate risk vermin infestation
+108,Foods not protected from contamination
+116,Moderate risk food holding temperature
+116,Permit license or inspection report not posted
+116,Food safety certificate or food handler card not available
+116,Improper cooling methods
+116,Improper or defective plumbing
+116,Unclean or unsanitary food contact surfaces
+116,Employee eating or smoking
+121,Low risk vermin infestation
+121,Wiping cloths not clean or properly stored or inadequate sanitizer
+121,Foods not protected from contamination
+121,Improper or defective plumbing
+121,Moderate risk vermin infestation
+121,Improper storage use or identification of toxic substances
+121,Inadequately cleaned or sanitized food contact surfaces
+121,Inadequate and inaccessible handwashing facilities
+121,Inadequately cleaned or sanitized food contact surfaces
+121,Improper food storage
+121,High risk food holding temperature
+126,High risk food holding temperature
+126,Unclean or degraded floors walls or ceilings
+126,Inadequate or unsanitary refuse containers or area or no garbage service
+126,Wiping cloths not clean or properly stored or inadequate sanitizer
+126,Foods not protected from contamination
+126,Inadequately cleaned or sanitized food contact surfaces
+126,Moderate risk vermin infestation
+126,Moderate risk vermin infestation
+126,Foods not protected from contamination
+126,Unclean or degraded floors walls or ceilings
